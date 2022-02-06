@@ -33,6 +33,14 @@ export default class DWCard extends React.Component<DWCardProps, CardState> {
 
     let displayed_definition: string = value;
     let button_text: string = buttonValues["expanded"];
+
+    /**
+     * ! TODO: make this a function and test it
+     *  (1) Test with short value
+     *  (2) Test with no value
+     *  (3) Test with null/falsy value
+     *  (4) Test with Long value
+     */
     if (value.length > 120) {
       if (!isExpanded) {
         displayed_definition = `${value.substring(0, 120)} . . .`;

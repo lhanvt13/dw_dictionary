@@ -43,12 +43,11 @@ export default class Dictionary extends React.Component<HeroListProps> {
                 src={
                   "https://uploads-ssl.webflow.com/61c9ec1055dce2405b8f19c6/61ca10aad0f01718b350f88b_DraftWise-logo-H.svg"
                 }
-                alt='Example of the image fit value "centerCover" on an image smaller than the frame.'
+                alt="DraftWise Logo."
               />
             ) : (
               <></>
             )}
-
             <DWList doc_defs={curr_para_defs} />
           </PivotItem>
           <PivotItem headerText="Whole Document" itemCount={num_doc_defs}>

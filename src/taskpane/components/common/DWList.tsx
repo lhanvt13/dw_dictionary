@@ -7,16 +7,17 @@ export interface DWListProps {
 export default class DWList extends React.Component<DWListProps> {
   render() {
     const { doc_defs } = this.props;
+    /**
+     * ! TODO: Test
+     *  (1) Test if this makes the right amout of cards
+     *  (2) Test performance
+     */
     return (
-      <div>
-        {Object.entries(doc_defs).map(([key, value]) => {
-          return (
-            <div key={key}>
-              <DWCard word={key} value={value} />
-            </div>
-          );
+      <>
+        {Object.entries(doc_defs).map(([word, definition]) => {
+          return <DWCard key={word} word={word} value={definition} />;
         })}
-      </div>
+      </>
     );
   }
 }
