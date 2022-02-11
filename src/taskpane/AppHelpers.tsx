@@ -27,7 +27,11 @@ export function retrieveKeyDefinitions({ paragraphs, split_value_start, split_va
         paragraph.indexOf(split_value_end)
       );
       var definition: string = paragraph.split(split_value_start + key_word + split_value_end)[1].trim();
-      temp_dictionary[key_word] = definition;
+
+      // check for case: entire paragraph is surrounded in quotations
+      if (key_word.length > 0 && definition.length > 0) {
+        temp_dictionary[key_word] = definition;
+      }
     }
   });
   return temp_dictionary;

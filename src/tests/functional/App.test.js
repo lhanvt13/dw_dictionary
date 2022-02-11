@@ -65,3 +65,15 @@ test("test initial loading of dictionary with quotations within the paragraph", 
       "including the phrase “to the Company’s knowledge” shall mean the actual knowledge [after reasonable investigation and assuming such knowledge as the individual would have as a result of the reasonable performance of his or her duties in the ordinary course] of the following officers: [specify names].10  Additionally, for purposes of Section 2.8, the Company shall be deemed to have “knowledge” of a patent right if the Company has actual knowledge of the patent right or would be found to be on notice of such patent right as determined by reference to United States patent laws.",
   });
 });
+
+test("test initial loading of dictionary with quotation mapping entire paragraph", () => {
+  const paragraphs = {
+    items: [
+      {
+        text: `“THE SHARES REPRESENTED HEREBY HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AND HAVE BEEN ACQUIRED FOR INVESTMENT AND NOT WITH A VIEW TO, OR IN CONNECTION WITH, THE SALE OR DISTRIBUTION THEREOF. NO SUCH TRANSFER MAY BE EFFECTED WITHOUT AN EFFECTIVE REGISTRATION STATEMENT RELATED THERETO OR AN OPINION OF COUNSEL IN A FORM SATISFACTORY TO THE COMPANY THAT SUCH REGISTRATION IS NOT REQUIRED UNDER THE SECURITIES ACT OF 1933.”`,
+      },
+    ],
+  };
+
+  expect(retrieveKeyDefinitions({ paragraphs, split_value_start, split_value_end })).toEqual({});
+});

@@ -44,8 +44,9 @@ export default class App extends React.Component<AppProps, AppState> {
       const temp_dictionary = retrieveKeyDefinitions({ paragraphs, split_value_start: "“", split_value_end: "”" });
       this.setState({
         dictionairy: temp_dictionary,
+        is_loading: false,
       });
-    }).catch(function (error) {
+    }).catch((error) => {
       console.log("Error: " + error);
       if (error instanceof OfficeExtension.Error) {
         console.log("Debug info: " + JSON.stringify(error.debugInfo));
@@ -60,6 +61,8 @@ export default class App extends React.Component<AppProps, AppState> {
        *    (2) Wrap current paragraph in a hidden content control, and keep track of whether I'm still within the "content control" each time this fires?
        *    (3) Keep track of range, and compare range each time? - this seems like an expensive operation...
        */
+      console.log("herer");
+
       return Word.run((context) => {
         let range = context.document.getSelection();
         range.paragraphs.load("items");
@@ -71,12 +74,14 @@ export default class App extends React.Component<AppProps, AppState> {
             if (this.state.current_paragraph !== range.paragraphs.items[0].text) {
               this.setState({
                 current_paragraph: range.paragraphs.items[0].text,
-                is_loading: false,
               });
             }
           })
-          .catch((err) => {
-            console.log("error occurred: ", err);
+          .catch((error) => {
+            console.log("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+              console.log("Debug info: " + JSON.stringify(error.debugInfo));
+            }
           });
       });
     });
