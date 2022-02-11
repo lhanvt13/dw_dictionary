@@ -55,7 +55,6 @@ export default class App extends React.Component<AppProps, AppState> {
   componentDidMount() {
     Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, () => {
       /**
-       * ! TODO: find a way to only trigger if prev_paragraph !== current_selection
        * Possibilities:
        *    (1) Keep track of paragraph numbers in array - this might have performance issues because we'd have to check each time for if there is a new paragraph
        *    (2) Wrap current paragraph in a hidden content control, and keep track of whether I'm still within the "content control" each time this fires?
@@ -70,13 +69,9 @@ export default class App extends React.Component<AppProps, AppState> {
             // ! IF selected paragraph starts with quotation marks, check if add it to this.state.DefinitionItems
             // * [performance] if user clicks current paragraph again or makes no changes in the current paragraph (e.g., moving cursor around), no need to update the state
             if (this.state.current_paragraph !== range.paragraphs.items[0].text) {
-              // this.setState({
-              //   current_paragraph: range.paragraphs.items[0].text,
-              //   is_loading: false,
-              // });
               this.setState({
                 current_paragraph: range.paragraphs.items[0].text,
-                is_loading: true,
+                is_loading: false,
               });
             }
           })
@@ -109,6 +104,7 @@ export default class App extends React.Component<AppProps, AppState> {
         curr_paragraph_definitions[key] = value;
       }
     }
+    // loading - display shimmer
     if (is_loading) {
       return <ShimmerCust />;
     }
